@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BKOS · Franqueada Grandha</title>
+<meta name="description" content="A história da BKOS e do Bruno Machado, terapeuta capilar, com notícias e textos sobre cabelo para salões de Vitória da Conquista e todo o Sudoeste Baiano.">
+<link rel="icon" href="img/favicon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap">
+<style>
+/* Site BKOS, estilo Vitrine acolhedora. Mesmos tokens da ficha de pré-avaliação. */
+:root{
+  --bg:#F6F7F5; --card:#FFFFFF; --ink:#2B2D42; --muted:#5f6670; --sage:#5E7F70; --sage-soft:#E4ECE7; --gold:#B8924A; --line:#DCE2DE;
+  --shadow:0 14px 34px -22px rgba(43,45,66,.45);
+  --display:"Cormorant Garamond",Georgia,serif; --body:"Jost","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171A1C;--card:#20252A;--ink:#EEF0EC;--muted:#A9B2AE;--sage:#8FB3A2;--sage-soft:#2A3631;--gold:#D2B06C;--line:#34403B;--shadow:0 14px 34px -22px rgba(0,0,0,.8);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171A1C;--card:#20252A;--ink:#EEF0EC;--muted:#A9B2AE;--sage:#8FB3A2;--sage-soft:#2A3631;--gold:#D2B06C;--line:#34403B;--shadow:0 14px 34px -22px rgba(0,0,0,.8);color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;margin:0}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.note{background:var(--sage-soft);font-size:.88rem;color:var(--ink);padding-block:10px;padding-top:calc(10px + env(safe-area-inset-top,0px))}
+.note .wrap{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.theme{font:inherit;font-size:.88rem;font-weight:500;border:1px solid var(--sage);color:var(--sage);background:transparent;border-radius:999px;padding:8px 14px;min-height:40px;cursor:pointer}
+
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:34px;height:34px}
+.word{font-family:var(--display);font-weight:600;letter-spacing:.32em;font-size:1.45rem;color:var(--sage)}
+nav{display:flex;gap:18px;font-size:.98rem;flex-wrap:wrap}
+nav a{text-decoration:none;padding-block:8px;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:500;font-size:1rem;border-radius:999px;padding:12px 24px;min-height:46px;border:1px solid var(--sage);background:var(--sage);color:var(--card);text-decoration:none;cursor:pointer}
+.pill.ghost{background:transparent;color:var(--sage)}
+.pill.sm{padding:9px 18px;min-height:42px;font-size:.95rem}
+
+.hero{background:linear-gradient(165deg,var(--sage-soft),var(--bg) 72%)}
+.hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:36px;align-items:center;padding-block:56px 48px}
+.eye{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:0 0 14px}
+h1{font-family:var(--display);font-weight:500;font-size:clamp(2.4rem,6vw,3.7rem);line-height:1.05;margin:0 0 18px;text-wrap:balance}
+h1 em{color:var(--gold);font-style:italic}
+.lead{color:var(--muted);max-width:46ch;margin:0 0 26px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.me{background:var(--card);border-radius:26px;padding:22px;box-shadow:var(--shadow);text-align:center;border:1px solid var(--line)}
+.me img{width:100%;max-width:240px;aspect-ratio:1;object-fit:cover;border-radius:50%;border:4px solid var(--gold)}
+.me b{display:block;font-family:var(--display);font-size:1.45rem;font-weight:600;margin-top:12px;line-height:1.2}
+.me span{display:block;font-size:.9rem;color:var(--muted)}
+.me .abt{margin-top:10px;font-size:.8rem;color:var(--sage);font-weight:500}
+
+section{padding-block:52px}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+h2{font-family:var(--display);font-weight:600;font-size:clamp(1.9rem,4.5vw,2.5rem);line-height:1.1;margin:0}
+.sub{color:var(--muted);margin:6px 0 0;max-width:52ch}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+.tag{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);font-weight:600}
+.card h3{font-family:var(--display);font-weight:500;font-size:1.5rem;line-height:1.18;margin:0}
+.card p{margin:0;color:var(--muted);font-size:.97rem}
+.leit{border-left:2px solid var(--gold);padding-left:12px;font-size:.94rem}
+.leit b{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.src{font-size:.85rem;color:var(--muted);margin-top:auto}
+.go{font-weight:500;color:var(--sage);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.go:hover{text-decoration:underline}
+
+.how{background:var(--sage-soft)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{background:var(--card);border-radius:22px;padding:22px;border:1px solid var(--line)}
+.step .n{font-family:var(--display);font-size:2.2rem;color:var(--gold);line-height:1}
+.step h3{font-family:var(--display);font-weight:600;font-size:1.4rem;margin:8px 0 6px}
+.step p{margin:0;color:var(--muted);font-size:.97rem}
+
+.tl{position:relative;display:grid;gap:18px;padding-left:28px;max-width:760px}
+.tl::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.ti{position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px 22px;box-shadow:var(--shadow)}
+.ti .dot{position:absolute;left:-28px;top:26px;width:16px;height:16px;border-radius:50%;background:var(--gold);border:3px solid var(--bg)}
+.ti h3{font-family:var(--display);font-weight:600;font-size:1.45rem;margin:0 0 6px;line-height:1.2}
+.ti p{margin:0;color:var(--muted)}
+.ti blockquote{margin:12px 0 0;font-family:var(--display);font-style:italic;font-size:1.35rem;color:var(--sage);line-height:1.3}
+.grid.two{grid-template-columns:1fr 1fr}
+.card.soon{background:transparent;box-shadow:none;border-style:dashed}
+.blog .card h3{font-size:1.4rem}
+.news-l{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:30px;box-shadow:var(--shadow)}
+.form{display:flex;gap:10px;flex-wrap:wrap}
+.form input{flex:1 1 220px;font:inherit;padding:12px 18px;min-height:46px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.small{font-size:.82rem;color:var(--muted);margin:10px 0 0}
+
+.buy{text-align:center}
+.buy h2{max-width:22ch;margin:0 auto 12px}
+.buy p{color:var(--muted);max-width:50ch;margin:0 auto 22px}
+
+footer{border-top:1px solid var(--line);padding-block:30px calc(30px + env(safe-area-inset-bottom,0px));font-size:.93rem;color:var(--muted)}
+footer .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:20px}
+footer b{color:var(--ink);display:block;margin-bottom:4px}
+footer a{text-decoration:none}
+
+.icon-link{display:inline-flex;align-items:center;gap:8px;color:var(--sage);text-decoration:none;min-height:44px;font-weight:500;transition:opacity .3s ease}
+.icon-link:hover,.icon-link:active{opacity:.7}
+.icon-link.center{justify-content:center;margin-top:4px;font-size:.92rem}
+.icon-link.big{font-size:1.1rem}
+.contacts{display:flex;gap:10px 28px;justify-content:center;flex-wrap:wrap}
+footer .icon-link{min-height:36px;font-weight:400}
+.wa{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:6;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--card);color:var(--sage);border:1px solid var(--line);box-shadow:var(--shadow);transition:opacity .3s ease}
+.wa:hover,.wa:active{opacity:.7}
+
+@media (max-width:980px){.grid{grid-template-columns:1fr 1fr}.grid>:last-child:nth-child(odd){grid-column:1/-1}.hero .wrap{gap:24px}}
+@media (max-width:700px){
+  .hero .wrap,.news-l{grid-template-columns:1fr}
+  .me{max-width:340px;margin-inline:auto;width:100%}
+  .grid,.grid.two,.steps{grid-template-columns:1fr}
+  footer .wrap{grid-template-columns:1fr}
+}
+@media (max-width:520px){nav{order:3;width:100%;justify-content:space-between}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="#inicio"><img src="img/simbolo.png" alt=""><span class="word">BKOS</span></a>
+  <nav aria-label="Menu"><a href="#historia">Nossa história</a><a href="#noticias">Notícias</a><a href="#blog">Blog</a><a href="#contato">Contato</a></nav>
+  <a class="icon-link" href="https://wa.me/5577988129822?text=Ol%C3%A1%2C%20Bruno!%20Vim%20pelo%20site%20da%20BKOS." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5l1.2-3.6A8 8 0 1 1 8.4 18.6z"/><path d="M9.2 8.6c.2-.5.6-.6 1-.5l.6 1.4c.1.3 0 .6-.2.8l-.4.4c.5 1 1.3 1.8 2.3 2.3l.4-.4c.2-.2.5-.3.8-.2l1.4.6c.1.4 0 .8-.5 1-1.9.9-5.9-2.6-5.4-5.4z"/></svg><span>WhatsApp</span></a>
+</div></header>
+
+<main>
+<div class="hero" id="inicio"><div class="wrap">
+  <div>
+    <p class="eye">Franqueada Grandha · Vitória da Conquista e todo o Sudoeste Baiano</p>
+    <h1>14 anos de estrada até a <em>terapia capilar</em></h1>
+    <p class="lead">A BKOS nasceu para chegar diferente ao salão: com produtos de alta performance, técnica, informação precisa e responsabilidade.</p>
+    <div class="btns"><a class="pill" href="#historia">Conhecer a história</a><a class="pill ghost" href="#contato">Falar com a BKOS</a></div>
+  </div>
+  <div class="me">
+    <img src="img/bruno.jpg" alt="Bruno Machado">
+    <b>Bruno Machado</b>
+    <span>Terapeuta Capilar · Fundador da BKOS</span>
+    <span class="abt">Membro oficial da Academia Brasileira de Tricologia</span>
+    <a class="icon-link center" href="https://instagram.com/bhsmachado" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg><span>@bhsmachado</span></a>
+  </div>
+</div></div>
+
+<section id="historia"><div class="wrap">
+  <div class="sh"><div><p class="eye">Nossa história</p><h2>Como nasceu a BKOS</h2><p class="sub">A história de quem chega ao salão para entender antes de oferecer.</p></div></div>
+  <div class="tl">
+    <div class="ti"><span class="dot"></span><h3>Tudo começou com um recomeço</h3><p>A empresa onde o Bruno trabalhava fechou. Ele aceitou uma vaga de auxiliar de escritório numa distribuidora de cosméticos profissionais, onde ficou 12 anos. Só os dois primeiros meses foram no escritório: logo perceberam o seu jeito com o cliente, e ele foi para as vendas.</p></div>
+    <div class="ti"><span class="dot"></span><h3>Estrada pelo interior da Bahia</h3><p>Depois de alguns meses de teste em Salvador, veio a proposta de levar as marcas para o interior. Foram anos de quilômetro, salão e pneu trocado no acostamento, com o banco de trás cheio de produto.</p></div>
+    <div class="ti"><span class="dot"></span><h3>Aprender com quem sabe</h3><p>Sem curso, ele foi aprender com os cabeleireiros, os mais velhos e os centros técnicos, sempre perguntando por quê. Ali veio a lição mais importante da carreira:</p><blockquote>Antes de falar, é preciso ouvir o salão.</blockquote></div>
+    <div class="ti"><span class="dot"></span><h3>O encontro com a Grandha</h3><p>A terapia capilar entrou na vida do Bruno, e os seus clientes voltaram da formação da Academia Brasileira de Tricologia falando de uma marca com alta tecnologia, base científica e ótimo custo-benefício. Era a Grandha. Foi um casamento para a vida.</p></div>
+    <div class="ti"><span class="dot"></span><h3>Quase 3 anos de estudo</h3><p>Formação em terapia capilar pela ABT, tricologia clínica e saúde integrativa, cosmetologia aplicada e aromaterapia clínica, sem parar de atender.</p><blockquote>O meu conhecimento não é para mim. É para ser compartilhado.</blockquote></div>
+    <div class="ti"><span class="dot"></span><h3>Nasce a BKOS</h3><p>Uma franqueada Grandha em Vitória da Conquista, para todo o Sudoeste Baiano. Antes de indicar qualquer produto, a gente explica o porquê.</p></div>
+  </div>
+</div></section>
+
+<section class="how" id="aprender"><div class="wrap">
+  <div class="sh"><div><p class="eye">Um lugar para aprender</p><h2>Informação técnica e científica sobre cabelo</h2><p class="sub">Este site é também um espaço de curadoria: notícias, estudos e lançamentos selecionados pela BKOS para terapeutas capilares, cabeleireiros e quem quer conhecer o mundo do cabelo de um jeito mais técnico.</p></div></div>
+  <div class="steps">
+    <div class="step"><div class="n">01</div><h3>Notícias</h3><p>O que sai sobre o mercado, a Anvisa e a terapia capilar, com resumo nas nossas palavras e crédito da fonte.</p></div>
+    <div class="step"><div class="n">02</div><h3>Blog do Bruno</h3><p>Textos sobre mercado, Grandha e terapia capilar, como um caderno de estudos.</p></div>
+    <div class="step"><div class="n">03</div><h3>Seleção semanal</h3><p>As notícias da semana direto no seu WhatsApp, e em breve por e-mail.</p></div>
+  </div>
+</div></section>
+
+<section id="noticias"><div class="wrap">
+  <div class="sh"><div><p class="eye">Curadoria BKOS</p><h2>Notícias selecionadas</h2><p class="sub">Resumo nas nossas palavras e o link para a matéria original, sempre com o crédito da fonte.</p></div><a class="pill ghost sm" href="noticias.html">Ver todas</a></div>
+  <div class="grid">
+    <article class="card"><span class="tag">Regras e Anvisa</span><h3>Formol não pode ser usado para alisar o cabelo</h3>
+      <p>A Anvisa reforçou que o formol e o ácido glioxílico são proibidos como alisante. A orientação é usar só produtos regularizados.</p>
+      <div class="leit"><b>Leitura BKOS</b>Conferir se o produto é regularizado protege a cliente, a equipe e o salão.</div>
+      <span class="src">Agência Brasil · 07/07/2025</span>
+      <a class="go" href="https://agenciabrasil.ebc.com.br/saude/noticia/2025-07/anvisa-alerta-sobre-uso-do-formol-como-alisante-de-cabelos/" target="_blank" rel="noopener">Ler na Agência Brasil →</a></article>
+    <article class="card"><span class="tag">Couro cabeludo</span><h3>O couro cabeludo virou uma categoria própria</h3>
+      <p>Segundo a Mintel, citada na matéria, 12% dos brasileiros já usam produto de tratamento para o couro cabeludo.</p>
+      <div class="leit"><b>Leitura BKOS</b>O lavatório pode ser o momento que a cliente mais sente.</div>
+      <span class="src">Negócios de Beleza · 02/10/2026</span>
+      <a class="go" href="https://negociosdebeleza.beautyfair.com.br/scalp-care-cuidados-com-o-couro-cabeludo-ganham-espaco-no-haircare-e-no-varejo-de-beleza/" target="_blank" rel="noopener">Ler no Negócios de Beleza →</a></article>
+    <article class="card"><span class="tag">Mercado</span><h3>Como conferir se um cosmético é regular</h3>
+      <p>A Anvisa determinou o recolhimento de lotes de produtos capilares irregulares. A matéria explica como conferir nome, fabricante e lote.</p>
+      <div class="leit"><b>Leitura BKOS</b>Comprar de canal oficial, com nota fiscal e lote rastreável, dá segurança.</div>
+      <span class="src">Portal 6 · 09/10/2026</span>
+      <a class="go" href="https://portal6.com.br/2026/10/09/shampoos-proibidos-pela-anvisa-em-2026-quais-produtos-foram-atingidos-e-como-identificar-os-lotes-irregulares/" target="_blank" rel="noopener">Ler no Portal 6 →</a></article>
+  </div>
+</div></section>
+
+<section class="blog" id="blog"><div class="wrap">
+  <div class="sh"><div><p class="eye">Blog do Bruno</p><h2>Textos para o seu salão</h2><p class="sub">Mercado, Grandha e terapia capilar, escritos pelo Bruno.</p></div><a class="pill ghost sm" href="https://www.bkos.com.br" target="_blank" rel="noopener">Ler o blog</a></div>
+  <div class="grid">
+    <article class="card"><span class="tag">Nossa história</span><h3>O porquê da BKOS: 14 anos de estrada até a terapia capilar</h3><span class="src">18/10/2026</span><a class="go" href="https://www.bkos.com.br/2026/10/o-porque-da-bkos.html" target="_blank" rel="noopener">Ler o texto →</a></article>
+    <article class="card"><span class="tag">Anvisa e regras</span><h3>O que a Anvisa liberou no cosmético feito em casa</h3><span class="src">23/10/2026</span><a class="go" href="https://www.bkos.com.br/2026/10/a-anvisa-liberou-alguns-cosmeticos.html" target="_blank" rel="noopener">Ler o texto →</a></article>
+    <article class="card"><span class="tag">Atendimento no salão</span><h3>Queda no outono: quem avalia, quem trata e quando encaminhar</h3><span class="src">30/10/2026</span><a class="go" href="https://www.bkos.com.br/2026/10/queda-no-outono-quem-avalia-quem-trata.html" target="_blank" rel="noopener">Ler o texto →</a></article>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sh"><div><p class="eye">Em breve</p><h2>O que a BKOS oferece</h2><p class="sub">O site vai crescer aos poucos. As próximas partes:</p></div></div>
+  <div class="grid two">
+    <article class="card soon"><span class="tag">Em breve</span><h3>Produtos que trabalhamos</h3><p>As linhas Grandha para salão, clínica e cuidado em casa, com a orientação da BKOS.</p></article>
+    <article class="card soon"><span class="tag">Em breve</span><h3>Serviços que promovemos</h3><p>Treinamento de equipe, conversa técnica, eventos nos salões e acompanhamento de perto.</p></article>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="news-l">
+    <div><p class="eye">Toda semana</p><h2>Receba a seleção da semana</h2><p class="sub">As notícias selecionadas e o texto novo do blog, uma vez por semana, pelo WhatsApp. Para sair, é só pedir.</p></div>
+    <div><a class="pill" href="https://wa.me/5577988129822?text=Ol%C3%A1%2C%20Bruno!%20Quero%20receber%20as%20not%C3%ADcias%20da%20semana%20da%20BKOS." target="_blank" rel="noopener">Quero receber pelo WhatsApp</a><p class="small">Em breve também por e-mail.</p></div>
+  </div>
+</div></section>
+
+<section class="buy" id="contato"><div class="wrap">
+  <p class="eye">Para comprar</p>
+  <h2>Fale direto com a BKOS</h2>
+  <p>Pedidos, orçamentos e dúvidas sobre os produtos Grandha são atendidos pelo WhatsApp da BKOS, com quem conhece o seu salão.</p>
+  <div class="contacts"><a class="icon-link big" href="https://wa.me/5577988129822?text=Ol%C3%A1%2C%20Bruno!%20Vim%20pelo%20site%20da%20BKOS." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5l1.2-3.6A8 8 0 1 1 8.4 18.6z"/><path d="M9.2 8.6c.2-.5.6-.6 1-.5l.6 1.4c.1.3 0 .6-.2.8l-.4.4c.5 1 1.3 1.8 2.3 2.3l.4-.4c.2-.2.5-.3.8-.2l1.4.6c.1.4 0 .8-.5 1-1.9.9-5.9-2.6-5.4-5.4z"/></svg><span>(77) 98812-9822</span></a><a class="icon-link big" href="mailto:atendimento@bkos.com.br"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4 7l8 6 8-6"/></svg><span>atendimento@bkos.com.br</span></a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div><b>BKOS</b>Franqueada Grandha<br>Vitória da Conquista e todo o Sudoeste Baiano</div>
+  <div><b>Contato</b><a class="icon-link" href="https://wa.me/5577988129822?text=Ol%C3%A1%2C%20Bruno!%20Vim%20pelo%20site%20da%20BKOS." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5l1.2-3.6A8 8 0 1 1 8.4 18.6z"/><path d="M9.2 8.6c.2-.5.6-.6 1-.5l.6 1.4c.1.3 0 .6-.2.8l-.4.4c.5 1 1.3 1.8 2.3 2.3l.4-.4c.2-.2.5-.3.8-.2l1.4.6c.1.4 0 .8-.5 1-1.9.9-5.9-2.6-5.4-5.4z"/></svg><span>(77) 98812-9822</span></a><br><a class="icon-link" href="mailto:atendimento@bkos.com.br"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4 7l8 6 8-6"/></svg><span>atendimento@bkos.com.br</span></a></div>
+  <div><b>Redes</b><a class="icon-link" href="https://instagram.com/bkos.oficial" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg><span>@bkos.oficial</span></a><br><a class="icon-link" href="https://instagram.com/bhsmachado" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg><span>@bhsmachado</span></a></div>
+</div></footer>
+
+<a class="wa" href="https://wa.me/5577988129822?text=Ol%C3%A1%2C%20Bruno!%20Vim%20pelo%20site%20da%20BKOS." target="_blank" rel="noopener" aria-label="Falar com a BKOS no WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5l1.2-3.6A8 8 0 1 1 8.4 18.6z"/><path d="M9.2 8.6c.2-.5.6-.6 1-.5l.6 1.4c.1.3 0 .6-.2.8l-.4.4c.5 1 1.3 1.8 2.3 2.3l.4-.4c.2-.2.5-.3.8-.2l1.4.6c.1.4 0 .8-.5 1-1.9.9-5.9-2.6-5.4-5.4z"/></svg></a>
+
+<script>
+(function(){
+  var root=document.documentElement,th=document.getElementById('theme');if(!th)return;
+  function dark(){return root.getAttribute('data-theme')==='dark'||(!root.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches)}
+  function lab(){th.textContent=dark()?'Modo dia':'Modo noite'}
+  th.addEventListener('click',function(){root.setAttribute('data-theme',dark()?'light':'dark');lab()});lab();
+})();
+</script>
+
+</body>
+</html>
