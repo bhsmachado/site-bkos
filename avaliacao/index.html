@@ -64,7 +64,7 @@ footer{margin-top:22px;font-size:.8rem;color:var(--muted);text-align:center}
 <div class="wrap">
 <header>
   <div class="brand">BKOS<small>Bruno Machado · Terapeuta capilar</small></div>
-  <div class="top"><div class="demo">Modo de teste. Nada é enviado.</div><button type="button" id="tema" class="tema" aria-label="Alternar modo dia e noite">Modo noite</button></div>
+  <div class="top"><span></span><button type="button" id="tema" class="tema" aria-label="Alternar modo dia e noite">Modo noite</button></div>
 </header>
 <div class="prog" id="prog"><span id="pt">Boas-vindas</span><div class="bar"><i id="pb" style="width:0%"></i></div><span id="pn">1/11</span></div>
 
@@ -164,7 +164,7 @@ function caseMd(){
   return out+`## Atendimento (Bruno)\n- Exame físico ABT: a preencher\n- Tricoscopia: a preencher\n`;
 }
 // Endereço do motor (Google Apps Script). Vazio = modo de teste, nada é enviado.
-const SCRIPT_URL='';
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbzMseN2vFugy5CDbMl_s6LccEVpKT6XVSdCXovu-4JDOdsJBpN_7EgAQAfwZlKxO4fkNA/exec';
 const toB64=b=>new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=rej;r.readAsDataURL(b)});
 function shrink(file){return new Promise(res=>{if(!/^image\//.test(file.type))return res(file);const img=new Image();img.onload=()=>{const k=Math.min(1,1600/Math.max(img.width,img.height));const c=document.createElement('canvas');c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);c.toBlob(b=>res(b||file),'image/jpeg',.82);URL.revokeObjectURL(img.src)};img.onerror=()=>res(file);img.src=URL.createObjectURL(file)})}
 async function collect(){
