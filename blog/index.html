@@ -7,7 +7,7 @@ description: Textos do Bruno Machado sobre mercado, Grandha e terapia capilar.
   <div class="sh"><div><p class="eye">Blog do Bruno</p><h2>Textos para o seu salão</h2><p class="sub">Mercado, Grandha e terapia capilar, como um caderno de estudos.</p></div></div>
   <div class="grid">
     {% for post in site.posts %}
-    <article class="card"><span class="tag">{{ post.tag }}</span><h3>{{ post.title }}</h3>{% if post.description %}<p>{{ post.description }}</p>{% endif %}<span class="src">{{ post.date | date: "%d/%m/%Y" }}</span><a class="go" href="{{ post.url }}">Ler o texto →</a></article>
+    <article class="card">{% if post.image %}<img class="thumb" src="{{ post.image }}" alt="" loading="lazy">{% endif %}<span class="tag">{{ post.tag }}</span><h3>{{ post.title }}</h3>{% if post.description %}<p>{{ post.description }}</p>{% endif %}<span class="src">{{ post.date | date: "%d/%m/%Y" }}</span><a class="go" href="{{ post.url }}">Ler o texto →</a></article>
     {% endfor %}
   </div>
 </div></section></main>

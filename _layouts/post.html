@@ -6,6 +6,7 @@ layout: default
   {% if page.tag %}<p class="eye">{{ page.tag }}</p>{% endif %}
   <h1>{{ page.title }}</h1>
   <p class="meta">{{ page.date | date: "%d/%m/%Y" }} · Bruno Machado</p>
+  {% if page.image %}<img class="cover" src="{{ page.image }}" alt="">{% endif %}
   <div class="body">
 {{ content }}
   </div>
