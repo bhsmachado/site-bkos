@@ -8,7 +8,8 @@ layout: default
   <p class="meta">{{ page.date | date: "%d/%m/%Y" }} · Bruno Machado</p>
   {% if page.image %}<img class="cover" src="{{ page.image }}" alt="">{% endif %}
   <div class="body">
-{{ content }}
+{%- comment -%} E-mail chega com quebras de linha a cada ~76 letras; junta as linhas e separa paragrafos {%- endcomment -%}
+{{ content | replace: "<br>​", "</p><p>" | replace: "<br>", " " | remove: "​" }}
   </div>
   <div class="author"><img src="/img/bruno.jpg" alt=""><div><b>Bruno Machado</b><span>Terapeuta Capilar · Fundador da BKOS · Membro oficial da Academia Brasileira de Tricologia</span></div></div>
 </article></main>
