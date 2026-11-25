@@ -1,0 +1,345 @@
+---
+layout: default
+title: Cadastro de cliente
+description: Cadastro rápido de cliente da BKOS, para nota fiscal, boleto e entrega. Uma pergunta por vez, cerca de 3 minutos.
+noindex: true
+---
+<style>
+#cad [hidden]{display:none!important}
+#cad{max-width:640px;margin:0 auto;padding-block:28px 72px}
+#cad .prog{display:flex;align-items:center;gap:12px;margin:0 0 16px;font-size:.78rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+#cad .bar{flex:1;height:2px;background:var(--line);position:relative}
+#cad .bar i{position:absolute;inset:0 auto 0 0;background:var(--gold);transition:width .4s}
+#cad .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 22px;display:flex;flex-direction:column;gap:18px;box-shadow:var(--shadow);animation:entra .35s ease}
+@keyframes entra{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#cad h1,#cad h2{font-family:var(--display);font-weight:500;line-height:1.12;margin:0;text-wrap:balance}
+#cad h1{font-size:2.3rem}#cad h2{font-size:1.85rem}
+#cad .lead{color:var(--muted);margin:-6px 0 0}
+#cad .q{display:flex;flex-direction:column;gap:6px;min-width:0}
+#cad .q>label,#cad .q>.lb{font-weight:500}
+#cad .opt{font-weight:400;color:var(--muted);font-size:.85rem}
+#cad .hint{font-size:.85rem;color:var(--muted)}
+#cad input[type=text],#cad input[type=email],#cad input[type=tel],#cad input[type=date],#cad select{width:100%;font:inherit;font-size:1.05rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-height:48px}
+#cad input:focus,#cad select:focus{outline:2px solid var(--gold);outline-offset:2px}
+#cad input[aria-invalid=true]{border-color:#b4462f}
+#cad .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#cad .row3{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+#cad .cards{display:grid;gap:10px}
+#cad .card-op input{position:absolute;opacity:0;pointer-events:none}
+#cad .card-op span{display:flex;flex-direction:column;gap:2px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:var(--bg);transition:border-color .2s,background .2s}
+#cad .card-op b{font-weight:500;font-size:1.05rem}
+#cad .card-op small{color:var(--muted);font-size:.88rem}
+#cad .card-op input:checked+span{border-color:var(--sage);background:var(--sage-soft);box-shadow:inset 3px 0 0 var(--sage)}
+#cad .card-op input:focus-visible+span{outline:2px solid var(--gold);outline-offset:2px}
+#cad .ops{display:flex;flex-wrap:wrap;gap:8px}
+#cad .op input{position:absolute;opacity:0;pointer-events:none}
+#cad .op span{display:inline-block;padding:9px 16px;border:1px solid var(--line);border-radius:999px;cursor:pointer;background:var(--bg)}
+#cad .op input:checked+span{background:var(--sage);border-color:var(--sage);color:var(--card)}
+#cad .op input:focus-visible+span{outline:2px solid var(--gold);outline-offset:2px}
+#cad .err{color:#b4462f;font-size:.86rem}
+#cad .err:empty{display:none}
+#cad .found{background:var(--sage-soft);border-radius:10px;padding:10px 14px;font-size:.92rem}
+#cad .found:empty{display:none}
+#cad .consent{display:flex;gap:12px;align-items:flex-start;background:var(--sage-soft);border-radius:10px;padding:14px;font-size:.95rem}
+#cad .consent input{margin-top:4px;width:20px;height:20px;accent-color:var(--sage);flex:none}
+#cad .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+#cad .nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px}
+#cad .nav .pill[disabled]{opacity:.6;cursor:wait}
+#cad .voltar{font:inherit;background:none;border:0;color:var(--muted);cursor:pointer;padding:10px 4px;text-decoration:underline;text-underline-offset:3px}
+#cad pre{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;white-space:pre-wrap;font-family:var(--body);font-size:.92rem;line-height:1.55;margin:0}
+#cad .fimwa{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+#cad .links{display:flex;flex-wrap:wrap;gap:10px}
+#cad .tempo{font-size:.85rem;color:var(--muted);display:flex;gap:6px;align-items:center}
+@media (max-width:560px){#cad .row,#cad .row3{grid-template-columns:1fr}#cad h1{font-size:2rem}#cad h2{font-size:1.6rem}}
+@media (prefers-reduced-motion:reduce){#cad .step{animation:none}#cad .bar i{transition:none}}
+</style>
+
+<main><div class="wrap"><div id="cad">
+<div class="prog" id="prog" hidden><span id="pt"></span><div class="bar"><i id="pb" style="width:0%"></i></div><span id="pn"></span></div>
+
+<form id="f" novalidate>
+<input class="hp" type="text" name="site_web" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+<section class="step" data-t="Início">
+  <p class="eye">BKOS · Franqueada Grandha</p>
+  <h1>Vamos deixar o seu cadastro em dia?</h1>
+  <p class="lead">É rapidinho, uma pergunta por vez. Com isso a sua nota fiscal, o boleto e a entrega saem certinhos, sem atraso. O CEP e o CNPJ preenchem o resto sozinhos.</p>
+  <p class="tempo"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Cerca de 3 minutos</p>
+  <div class="q"><span class="lb" id="l-perfil">Para começar: qual é o seu perfil?</span>
+    <div class="cards" role="radiogroup" aria-labelledby="l-perfil">
+      <label class="card-op"><input type="radio" name="perfil" value="beleza" data-auto><span><b>Salão ou profissional da beleza</b><small>Cabeleireiro(a), terapeuta capilar, barbearia, esteticista</small></span></label>
+      <label class="card-op"><input type="radio" name="perfil" value="saude" data-auto><span><b>Clínica ou profissional da saúde</b><small>Biomédico(a), farmacêutico(a), médico(a), clínica</small></span></label>
+      <label class="card-op"><input type="radio" name="perfil" value="casa" data-auto><span><b>Compro para usar em casa</b><small>Cuidados para mim e para a família</small></span></label>
+    </div><span class="err" id="e-perfil"></span></div>
+</section>
+
+<section class="step" data-t="Sua área" data-if="pro" hidden>
+  <h2>Qual é a sua área?</h2>
+  <div class="ops" role="radiogroup" aria-label="Área" id="areas"></div>
+  <div class="q" id="q-area-outra" hidden><label for="area_outra">Qual?</label><input type="text" id="area_outra" name="area_outra"></div>
+  <span class="err" id="e-area"></span>
+</section>
+
+<section class="step" data-t="Nota fiscal" data-if="pro" hidden>
+  <h2>A nota fiscal sai em nome de quê?</h2>
+  <p class="lead">Para salão e profissional, o cadastro é pelo CNPJ ou MEI.</p>
+  <div class="cards" role="radiogroup" aria-label="Nota fiscal em nome de">
+    <label class="card-op"><input type="radio" name="tipo" value="PJ" data-auto><span><b>Da empresa</b><small>Tenho CNPJ ou MEI</small></span></label>
+    <label class="card-op"><input type="radio" name="tipo" value="PF" data-auto><span><b>Ainda não tenho CNPJ</b><small>O cadastro fica no meu CPF</small></span></label>
+  </div><span class="err" id="e-tipo"></span>
+</section>
+
+<section class="step" data-t="Empresa" data-if="pj" hidden>
+  <h2>Qual é o CNPJ?</h2>
+  <p class="lead">Pode ser MEI. Eu busco os dados da empresa para você só conferir.</p>
+  <div class="q"><label for="cnpj">CNPJ ou MEI</label><input type="text" id="cnpj" name="cnpj" inputmode="numeric" autocomplete="off" placeholder="00.000.000/0000-00"><span class="err" id="e-cnpj"></span></div>
+  <div class="found" id="achou" aria-live="polite"></div>
+  <div class="q"><label for="razao">Razão social <span class="opt">(o nome que está no CNPJ)</span></label><input type="text" id="razao" name="razao"><span class="err" id="e-razao"></span></div>
+  <div class="q"><label for="fantasia">Nome do salão ou espaço <span class="opt">(nome fantasia)</span></label><input type="text" id="fantasia" name="fantasia" autocomplete="organization"><span class="err" id="e-fantasia"></span></div>
+  <div class="q"><label for="ie">Inscrição Estadual <span class="opt">(se não souber, pode deixar em branco)</span></label><input type="text" id="ie" name="ie" inputmode="numeric">
+    <div class="ops"><label class="op"><input type="checkbox" id="ie_isento" name="ie_isento" value="Isento"><span>Não tenho ou sou isento(a)</span></label></div></div>
+</section>
+
+<section class="step" data-t="Sobre você" hidden>
+  <h2 id="h-voce">E você, como se chama?</h2>
+  <div class="q"><label for="nome">Nome completo</label><input type="text" id="nome" name="nome" autocomplete="name" autocapitalize="words"><span class="err" id="e-nome"></span></div>
+  <div class="row">
+    <div class="q"><label for="cpf">CPF <span class="opt" id="o-cpf"></span></label><input type="text" id="cpf" name="cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00"><span class="err" id="e-cpf"></span></div>
+    <div class="q"><label for="nasc">Aniversário <span class="opt">(opcional)</span></label><input type="date" id="nasc" name="nasc" autocomplete="bday"></div>
+  </div>
+  <p class="hint" id="h-cpf"></p>
+</section>
+
+<section class="step" data-t="Seu espaço" data-if="pro" hidden>
+  <h2 id="h-espaco">Conta um pouco do seu espaço</h2>
+  <div class="q" data-if="pf"><label for="fantasia_pf">Nome do salão ou espaço <span class="opt">(se tiver)</span></label><input type="text" id="fantasia_pf" name="fantasia_pf"></div>
+  <div class="q"><label for="insta">Instagram profissional <span class="opt" id="o-insta"></span></label><input type="text" id="insta" name="insta" placeholder="@seuespaco" autocapitalize="off" spellcheck="false"><span class="hint" id="h-insta">É por ele que eu conheço o seu trabalho.</span><span class="err" id="e-insta"></span>
+    <div class="ops" id="sem-insta"><label class="op"><input type="checkbox" id="insta_nao" name="insta_nao" value="sim"><span>Não tenho Instagram profissional</span></label></div></div>
+  <div class="q"><label for="compras">Quem faz os pedidos ou recebe a entrega, se for outra pessoa <span class="opt">(opcional)</span></label><input type="text" id="compras" name="compras" placeholder="Ex.: Ana, da recepção"></div>
+</section>
+
+<section class="step" data-t="Contato" hidden>
+  <h2 id="h-contato">Como eu falo com você?</h2>
+  <div class="q"><label for="whats">WhatsApp</label><input type="tel" id="whats" name="whats" autocomplete="tel" inputmode="tel" placeholder="(77) 9 0000-0000"><span class="err" id="e-whats"></span></div>
+  <div class="q"><label for="email">E-mail <span class="opt">(é para onde vão a nota e o boleto)</span></label><input type="email" id="email" name="email" autocomplete="email" autocapitalize="off" spellcheck="false"><span class="err" id="e-email"></span></div>
+  <div class="q"><label for="tel2">Outro telefone <span class="opt">(se tiver)</span></label><input type="tel" id="tel2" name="tel2" inputmode="tel"><span class="err" id="e-tel2"></span></div>
+</section>
+
+<section class="step" data-t="Endereço" hidden>
+  <h2>Qual é o endereço?</h2>
+  <p class="lead" id="l-end">Digite o CEP e eu completo o resto.</p>
+  <div class="q"><label for="cep">CEP</label><input type="text" id="cep" name="cep" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000"><span class="err" id="e-cep"></span><a class="hint" href="https://buscacepinter.correios.com.br/" target="_blank" rel="noopener">Não sei o meu CEP</a></div>
+  <div class="row3">
+    <div class="q"><label for="rua">Rua ou avenida</label><input type="text" id="rua" name="rua" autocomplete="address-line1"><span class="err" id="e-rua"></span></div>
+    <div class="q"><label for="num">Número</label><input type="text" id="num" name="num" placeholder="ou s/n"><span class="err" id="e-num"></span></div>
+  </div>
+  <div class="row">
+    <div class="q"><label for="compl">Complemento <span class="opt">(sala, loja, apto)</span></label><input type="text" id="compl" name="compl" autocomplete="address-line2"></div>
+    <div class="q"><label for="bairro">Bairro</label><input type="text" id="bairro" name="bairro"><span class="err" id="e-bairro"></span></div>
+  </div>
+  <div class="row3">
+    <div class="q"><label for="cidade">Cidade</label><input type="text" id="cidade" name="cidade" autocomplete="address-level2"><span class="err" id="e-cidade"></span></div>
+    <div class="q"><label for="uf">Estado</label><select id="uf" name="uf"></select></div>
+  </div>
+  <div class="q"><label for="ref">Ponto de referência <span class="opt">(ajuda na entrega)</span></label><input type="text" id="ref" name="ref"></div>
+  <input type="hidden" id="ibge" name="ibge">
+</section>
+
+<section class="step" data-t="Entrega" hidden>
+  <h2>A entrega é nesse mesmo endereço?</h2>
+  <div class="cards" role="radiogroup" aria-label="Entrega no mesmo endereço">
+    <label class="card-op"><input type="radio" name="mesma" value="sim" data-auto><span><b>Sim, pode entregar aí</b></span></label>
+    <label class="card-op"><input type="radio" name="mesma" value="nao"><span><b>Não, é em outro lugar</b></span></label>
+  </div><span class="err" id="e-mesma"></span>
+  <div id="ent" hidden>
+    <div class="q"><label for="e_cep">CEP da entrega</label><input type="text" id="e_cep" name="e_cep" inputmode="numeric" placeholder="00000-000"><span class="err" id="e-e_cep"></span></div>
+    <div class="row3" style="margin-top:14px">
+      <div class="q"><label for="e_rua">Rua ou avenida</label><input type="text" id="e_rua" name="e_rua"><span class="err" id="e-e_rua"></span></div>
+      <div class="q"><label for="e_num">Número</label><input type="text" id="e_num" name="e_num"><span class="err" id="e-e_num"></span></div>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <div class="q"><label for="e_compl">Complemento</label><input type="text" id="e_compl" name="e_compl"></div>
+      <div class="q"><label for="e_bairro">Bairro</label><input type="text" id="e_bairro" name="e_bairro"><span class="err" id="e-e_bairro"></span></div>
+    </div>
+    <div class="row3" style="margin-top:14px">
+      <div class="q"><label for="e_cidade">Cidade</label><input type="text" id="e_cidade" name="e_cidade"><span class="err" id="e-e_cidade"></span></div>
+      <div class="q"><label for="e_uf">Estado</label><select id="e_uf" name="e_uf"></select></div>
+    </div>
+    <div class="q" style="margin-top:14px"><label for="e_ref">Ponto de referência</label><input type="text" id="e_ref" name="e_ref"></div>
+  </div>
+</section>
+
+<section class="step" data-t="Conferir" hidden>
+  <h2 id="h-conf">Tudo certo?</h2>
+  <p class="lead">Dá uma olhada. Se algo estiver errado, toque em Voltar.</p>
+  <pre id="resumo"></pre>
+  <label class="consent" for="lgpd"><input type="checkbox" id="lgpd" name="lgpd"><span>Autorizo a BKOS a usar estes dados para emitir nota fiscal, cobrança e entrega, e para falar comigo sobre os meus pedidos. Os dados não são passados a ninguém fora disso, e posso pedir para corrigir ou apagar quando quiser (LGPD).</span></label>
+  <span class="err" id="e-lgpd"></span>
+  <label class="consent" for="novidades" style="background:transparent;border:1px solid var(--line)"><input type="checkbox" id="novidades" name="novidades" value="Sim"><span>Quero receber novidades, lançamentos e convites para treinamentos da BKOS. <span class="opt">(opcional, posso sair quando quiser)</span></span></label>
+</section>
+
+<div class="nav" id="nav"><button type="button" class="voltar" id="back" hidden>Voltar</button><span></span><button type="submit" class="pill" id="next">Começar</button></div>
+<p class="err" id="e-geral" role="alert"></p>
+</form>
+
+<section class="step" id="fim" hidden>
+  <h2 id="h-fim">Cadastro recebido. Obrigado!</h2>
+  <p id="fim-ok">Vou conferir tudo e deixar pronto no sistema. Se faltar alguma coisa, falo com você pelo WhatsApp.</p>
+  <div id="fim-wa" class="fimwa" hidden>
+    <p style="margin:0">Falta só um toque: envie o cadastro para mim pelo WhatsApp. A mensagem já vai pronta.</p>
+    <a class="pill" id="wa-envio" href="#" target="_blank" rel="noopener">Enviar pelo WhatsApp</a>
+  </div>
+  <p style="margin:0">Enquanto isso, conheça o jeito BKOS de trabalhar:</p>
+  <div class="links"><a class="pill ghost sm" href="/#historia">Nossa história</a><a class="pill ghost sm" href="/blog/">Blog</a><a class="pill ghost sm" href="/noticias.html">Notícias</a></div>
+</section>
+</div></div></main>
+
+<script>
+(function(){
+// Endereço do motor (Google Apps Script). Vazio = o cadastro vai pronto pelo WhatsApp, sem gravar na planilha.
+var SCRIPT_URL='';
+var WA='5577988129822';
+var AREAS={beleza:['Cabeleireiro(a)','Terapeuta capilar','Barbearia','Esteticista','Outra'],saude:['Clínica','Biomédico(a)','Farmacêutico(a)','Médico(a)','Outra']};
+var UFS='AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO'.split(' ');
+var f=document.getElementById('f'),$=function(id){return document.getElementById(id)};
+var steps=[].slice.call(f.querySelectorAll('section.step')),i=0;
+['uf','e_uf'].forEach(function(id){$(id).innerHTML='<option value="">UF</option>'+UFS.map(function(u){return '<option'+(u==='BA'?' selected':'')+'>'+u+'</option>'}).join('')});
+
+var dig=function(s){return String(s||'').replace(/\D/g,'')};
+function val(n){var el=f.elements[n];if(!el)return '';if(el instanceof RadioNodeList){return el.value||''}if(el.type==='checkbox')return el.checked?(el.value||'sim'):'';return String(el.value||'').trim()}
+function okCPF(c){c=dig(c);if(c.length!==11||/^(\d)\1+$/.test(c))return false;for(var t=9;t<11;t++){var s=0;for(var k=0;k<t;k++)s+=c[k]*(t+1-k);if(((s*10)%11)%10!=c[t])return false}return true}
+function okCNPJ(c){c=dig(c);if(c.length!==14||/^(\d)\1+$/.test(c))return false;var calc=function(n){var s=0,p=n-7;for(var k=0;k<n;k++){s+=c[k]*p--;if(p<2)p=9}var r=s%11;return r<2?0:11-r};return calc(12)==c[12]&&calc(13)==c[13]}
+function okTel(v){var d=dig(v);return d.length===10||d.length===11}
+function mask(id,fmt){var el=$(id);el.addEventListener('input',function(){var d=dig(el.value),m=fmt(d),o='',k=0;for(var x=0;x<m.length&&k<d.length;x++)o+=m[x]==='#'?d[k++]:m[x];el.value=o})}
+mask('cpf',function(){return '###.###.###-##'});mask('cnpj',function(){return '##.###.###/####-##'});
+mask('cep',function(){return '#####-###'});mask('e_cep',function(){return '#####-###'});
+['whats','tel2'].forEach(function(id){mask(id,function(d){return d.length>10?'(##) # ####-####':'(##) ####-####'})});
+
+var perfil=function(){return val('perfil')},pro=function(){return perfil()==='beleza'||perfil()==='saude'};
+var tipo=function(){return pro()?val('tipo'):'PF'};
+var primeiro=function(){return (val('nome').split(/\s+/)[0]||'').replace(/^./,function(c){return c.toUpperCase()})};
+function vale(s){var c=s.dataset.if;return !c||(c==='pro'&&pro())||(c==='pj'&&pro()&&tipo()==='PJ')}
+function ativos(){return steps.filter(vale)}
+
+function areas(){var box=$('areas'),lista=AREAS[perfil()]||[],atual=val('area');box.innerHTML=lista.map(function(a){return '<label class="op"><input type="radio" name="area" value="'+a+'"'+(a===atual?' checked':'')+'><span>'+a+'</span></label>'}).join('')}
+
+function show(){
+  var a=ativos(),s=a[i];steps.forEach(function(x){x.hidden=x!==s});
+  var nome=primeiro();
+  if(nome){$('h-contato').textContent='Prazer, '+nome+'! Como eu falo com você?';$('h-conf').textContent='Quase lá, '+nome+'. Tudo certo?'}
+  $('o-insta').textContent=perfil()==='beleza'?'':'(se tiver)';$('sem-insta').hidden=perfil()!=='beleza';$('insta').disabled=$('insta_nao').checked;
+  $('h-espaco').textContent=perfil()==='saude'?'Conta um pouco do seu espaço de atendimento':'Conta um pouco do seu espaço';
+  f.querySelectorAll('[data-if="pf"]').forEach(function(q){q.hidden=tipo()!=='PF'});
+  var cpfObrig=tipo()==='PF';$('o-cpf').textContent=cpfObrig?'':'(opcional)';
+  $('h-cpf').textContent=cpfObrig?'O CPF é para a nota fiscal sair no seu nome.':'Como a nota sai no CNPJ, o seu CPF é opcional.';
+  $('l-end').textContent=(tipo()==='PJ'?'O endereço da empresa, como está no CNPJ. ':'')+'Digite o CEP e eu completo o resto.';
+  $('ent').hidden=val('mesma')!=='nao';
+  if(s.querySelector('#areas'))areas();
+  if(s.querySelector('#resumo'))$('resumo').textContent=resumo(dados());
+  $('back').hidden=i===0;
+  $('next').textContent=i===0?'Começar':(i===a.length-1?'Enviar cadastro':'Continuar');
+  var p=$('prog');p.hidden=i===0;$('pt').textContent=s.dataset.t;$('pn').textContent=i+'/'+(a.length-1);$('pb').style.width=Math.round(i/(a.length-1)*100)+'%';
+  window.scrollTo({top:0,behavior:'smooth'});
+  var foco=s.querySelector('input[type=text],input[type=email],input[type=tel]');if(foco&&i>0&&!foco.value)setTimeout(function(){foco.focus({preventScroll:true})},350);
+}
+
+f.addEventListener('change',function(e){
+  var t=e.target;
+  if(t.name==='perfil'){i=0}
+  if(t.name==='area')$('q-area-outra').hidden=t.value!=='Outra';
+  if(t.id==='insta_nao'){$('insta').disabled=t.checked;if(t.checked){$('insta').value='';setErr('insta','')}}
+  if(t.id==='ie_isento'){$('ie').disabled=t.checked;if(t.checked)$('ie').value=''}
+  if(t.name==='mesma'){$('ent').hidden=t.value!=='nao';if(t.value==='nao')setTimeout(function(){$('e_cep').focus()},50)}
+  if(t.hasAttribute('data-auto')&&t.checked){setTimeout(avancar,260)}
+});
+
+function setErr(id,msg){var e=$('e-'+id),el=$(id);if(e)e.textContent=msg||'';if(el&&el.tagName!=='DIV')el.setAttribute('aria-invalid',msg?'true':'false')}
+
+// CEP -> endereço (ViaCEP)
+function cep(pre){var el=$(pre+'cep');el.addEventListener('input',function(){var d=dig(el.value);if(d.length!==8)return;
+  fetch('https://viacep.com.br/ws/'+d+'/json/').then(function(r){return r.json()}).then(function(j){
+    if(j.erro){setErr(pre+'cep','Não achei esse CEP. Confira ou preencha o endereço à mão.');return}
+    setErr(pre+'cep','');
+    $(pre+'rua').value=j.logradouro||$(pre+'rua').value;$(pre+'bairro').value=j.bairro||$(pre+'bairro').value;$(pre+'cidade').value=j.localidade||'';$(pre+'uf').value=j.uf||'';
+    if(!pre)$('ibge').value=j.ibge||'';
+    $(j.logradouro?pre+'num':pre+'rua').focus();
+  }).catch(function(){});
+})}
+cep('');cep('e_');
+
+// CNPJ -> dados públicos da Receita (BrasilAPI)
+$('cnpj').addEventListener('input',function(){var d=dig(this.value);$('achou').textContent='';if(d.length!==14)return;
+  if(!okCNPJ(d)){setErr('cnpj','Esse CNPJ não confere. Dê uma olhada nos números.');return}
+  setErr('cnpj','');$('achou').textContent='Buscando os dados da empresa...';
+  fetch('https://brasilapi.com.br/api/cnpj/v1/'+d).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+    $('achou').textContent='Achei! Confira se está tudo certo.'+(j.descricao_situacao_cadastral&&j.descricao_situacao_cadastral!=='ATIVA'?' Atenção: o CNPJ aparece como '+j.descricao_situacao_cadastral.toLowerCase()+' na Receita.':'');
+    if(j.razao_social)$('razao').value=j.razao_social;
+    if(j.nome_fantasia&&!$('fantasia').value)$('fantasia').value=j.nome_fantasia;
+    if(j.cep&&!$('cep').value){$('cep').value=String(j.cep).replace(/^(\d{5})(\d{3})$/,'$1-$2');
+      $('rua').value=[j.descricao_tipo_de_logradouro,j.logradouro].filter(Boolean).join(' ');$('num').value=j.numero||'';$('compl').value=j.complemento||'';$('bairro').value=j.bairro||'';$('cidade').value=j.municipio||'';$('uf').value=j.uf||'BA';$('ibge').value=j.codigo_municipio_ibge||''}
+  }).catch(function(){$('achou').textContent='Não consegui buscar agora. Preencha à mão, sem problema.'});
+});
+
+function valida(s){
+  var ok=true,first=null;
+  var req=function(id,msg,test){var v=val(id),bad=test?!test(v):!v;setErr(id,bad?msg:'');if(bad){ok=false;first=first||$(id)}};
+  var tem=function(sel){return !!s.querySelector(sel)};
+  if(tem('[name=perfil]')&&!val('perfil')){$('e-perfil').textContent='Escolha uma opção para começar.';ok=false}else if(tem('[name=perfil]'))$('e-perfil').textContent='';
+  if(tem('#areas')){var a=val('area');$('e-area').textContent=a?'':'Escolha uma opção.';if(!a)ok=false;if(a==='Outra')req('area_outra','Conte qual é a sua área.')}
+  if(tem('[name=tipo]')){$('e-tipo').textContent=val('tipo')?'':'Escolha uma opção.';if(!val('tipo'))ok=false}
+  if(tem('#cnpj')){req('cnpj','Digite um CNPJ válido.',okCNPJ);req('razao','Digite a razão social.');req('fantasia','Digite o nome do salão ou espaço.')}
+  if(tem('#nome')){req('nome','Digite o nome e o sobrenome.',function(v){return v.split(/\s+/).length>=2});
+    if(tipo()==='PF')req('cpf','Digite um CPF válido.',okCPF);else if(val('cpf'))req('cpf','Esse CPF não confere.',okCPF);else setErr('cpf','')}
+  if(tem('#insta')&&perfil()==='beleza'&&!$('insta_nao').checked)req('insta','Digite o @ do Instagram, ou marque que não tem.',function(v){return /^@?[A-Za-z0-9._]{2,30}$/.test(v)});else if(tem('#insta'))setErr('insta','');
+  if(tem('#whats')){req('whats','Digite o WhatsApp com DDD.',okTel);req('email','Digite um e-mail válido.',function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)});if(val('tel2'))req('tel2','Confira o telefone com DDD.',okTel);else setErr('tel2','')}
+  if(tem('#cep')){req('cep','Digite o CEP com 8 números.',function(v){return dig(v).length===8});req('rua','Digite a rua.');req('num','Digite o número (ou s/n).');req('bairro','Digite o bairro.');req('cidade','Digite a cidade.')}
+  if(tem('[name=mesma]')){if(!val('mesma')){$('e-mesma').textContent='Escolha uma opção.';ok=false}else{$('e-mesma').textContent='';if(val('mesma')==='nao'){req('e_cep','Digite o CEP da entrega.',function(v){return dig(v).length===8});req('e_rua','Digite a rua.');req('e_num','Digite o número.');req('e_bairro','Digite o bairro.');req('e_cidade','Digite a cidade.')}}}
+  if(tem('#lgpd')){$('e-lgpd').textContent=$('lgpd').checked?'':'Para enviar, marque a autorização acima.';if(!$('lgpd').checked)ok=false}
+  if(first)first.focus();
+  return ok;
+}
+
+var PERFIS={beleza:'Salão ou profissional da beleza',saude:'Clínica ou profissional da saúde',casa:'Uso em casa'};
+function dados(){
+  var pj=tipo()==='PJ',area=val('area')==='Outra'?val('area_outra'):val('area'),d={
+    perfil:PERFIS[perfil()]||'',area:pro()?area:'',tipo:pj?'Pessoa jurídica':'Pessoa física',
+    cnpj:pj?val('cnpj'):'',razao:pj?val('razao'):'',ie:pj?(val('ie_isento')?'Isento':val('ie')):'',
+    fantasia:pro()?(pj?val('fantasia'):val('fantasia_pf')):'',insta:pro()?($('insta_nao').checked?'Não tem':val('insta')):'',compras:pro()?val('compras'):'',
+    nome:val('nome'),cpf:val('cpf'),nasc:val('nasc'),
+    whats:val('whats'),tel2:val('tel2'),email:val('email').toLowerCase(),
+    cep:val('cep'),rua:val('rua'),num:val('num'),compl:val('compl'),bairro:val('bairro'),cidade:val('cidade'),uf:val('uf'),ref:val('ref'),ibge:val('ibge'),
+    entrega_mesma:val('mesma')==='nao'?'Não':'Sim',lgpd:$('lgpd').checked?'Sim':'Não',novidades:$('novidades').checked?'Sim':'Não',site_web:val('site_web')
+  };
+  if(val('mesma')==='nao')['cep','rua','num','compl','bairro','cidade','uf','ref'].forEach(function(k){d['e_'+k]=val('e_'+k)});
+  return d;
+}
+function resumo(d){
+  var L=function(r,v){return v?r+': '+v+'\n':''},end=function(p){return [d[p+'rua'],d[p+'num'],d[p+'compl'],d[p+'bairro'],d[p+'cidade']+'/'+d[p+'uf'],'CEP '+d[p+'cep']].filter(Boolean).join(', ')};
+  return L('Perfil',d.perfil)+L('Área',d.area)+L('Nota em nome de',d.tipo)+L('CNPJ',d.cnpj)+L('Razão social',d.razao)+L('Inscrição Estadual',d.ie)+L('Salão ou espaço',d.fantasia)+
+    L('Nome',d.nome)+L('CPF',d.cpf)+L('Aniversário',d.nasc?d.nasc.split('-').reverse().join('/'):'')+L('Instagram',d.insta)+L('Pedidos ou entrega',d.compras)+
+    L('WhatsApp',d.whats)+L('E-mail',d.email)+L('Outro telefone',d.tel2)+
+    'Endereço: '+end('')+'\n'+L('Referência',d.ref)+
+    (d.entrega_mesma==='Sim'?'Entrega: no mesmo endereço':'Entrega: '+end('e_')+(d.e_ref?'\nReferência da entrega: '+d.e_ref:''));
+}
+function fim(d){
+  f.hidden=true;$('prog').hidden=true;$('fim').hidden=false;
+  var nome=primeiro();if(nome)$('h-fim').textContent='Obrigado, '+nome+'!';
+  if(!SCRIPT_URL){$('fim-ok').hidden=true;$('fim-wa').hidden=false;$('wa-envio').href='https://wa.me/'+WA+'?text='+encodeURIComponent('*CADASTRO DE CLIENTE BKOS*\n'+resumo(d)+'\nAutorizo o uso dos dados (LGPD): sim\nQuer receber novidades: '+d.novidades)}
+  window.scrollTo({top:0});
+}
+function avancar(){
+  var a=ativos();if(!valida(a[i]))return;
+  if(i<a.length-1){i++;show();return}
+  var d=dados();if(d.site_web)return;
+  if(!SCRIPT_URL){fim(d);return}
+  var b=$('next');b.disabled=true;b.textContent='Enviando...';$('e-geral').textContent='';
+  fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)})
+    .then(function(r){return r.json()}).then(function(j){if(!j.ok)throw new Error(j.erro);fim(d)})
+    .catch(function(){b.disabled=false;b.textContent='Enviar cadastro';$('e-geral').textContent='Não consegui enviar agora. Confira a internet e toque em Enviar de novo. Se continuar, me chame no WhatsApp (77) 98812-9822.'});
+}
+f.addEventListener('submit',function(e){e.preventDefault();avancar()});
+$('nome').addEventListener('blur',function(){var low=['da','de','do','das','dos','e'];this.value=this.value.trim().replace(/\s+/g,' ').toLowerCase().split(' ').map(function(w,k){return k&&low.indexOf(w)>=0?w:w.charAt(0).toUpperCase()+w.slice(1)}).join(' ')});
+$('back').addEventListener('click',function(){if(i>0){i--;show()}});
+show();
+})();
+</script>
