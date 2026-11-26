@@ -1,0 +1,51 @@
+---
+layout: default
+title: "Catálogo de produtos"
+description: "Produtos Grandha com preço sugerido ao público, para que serve, como usar e quanto custa cada uso. BKOS, Franqueada Grandha no Sudoeste Baiano."
+image: /catalogo/og/catalogo.jpg
+---
+<link rel="stylesheet" href="/catalogo/catalogo.css">
+<main>
+<section class="cat-top"><div class="wrap">
+  <p class="eye">BKOS · Franqueada Grandha</p>
+  <h1>Catálogo de produtos</h1>
+  <p class="lead">Digite o nome ou o que você procura (cachos, frizz, lavanda...). Cada produto mostra o preço sugerido ao público, para que serve, como usar e quanto custa cada uso.</p>
+  <p class="aviso">Alguns tratamentos só existem no salão, feitos por profissional. Aqui estão os cuidados para usar em casa. Pergunte ao seu profissional.</p>
+  <p class="pdfs-gerais">Catálogo completo em PDF: <a href="/catalogo/pdf/catalogo-celular.pdf" download>celular</a> <a href="/catalogo/pdf/catalogo-impressao.pdf" download>impressão (A4)</a></p>
+</div></section>
+<div class="busca"><div class="wrap">
+  <input id="q" type="search" placeholder="Buscar produto, linha ou necessidade" aria-label="Buscar produto" autocomplete="off">
+  <div class="chips" id="chips" role="group" aria-label="Categorias"></div>
+</div></div>
+<section class="res"><div class="wrap">
+  <p class="conta" id="conta" aria-live="polite"></p>
+  <div class="grade" id="grade"></div>
+  <p class="fine">Preços da tabela Grandha de outubro de 2026, sugeridos ao público; podem mudar em campanhas. Custo por uso: Tabela de referência Grandha. Dependendo da sua metodologia de uso, você pode alcançar mais aplicações. Fontes oficiais Grandha.</p>
+</div></section>
+</main>
+<script src="/catalogo/produtos.js"></script>
+<script>
+(function(){
+  var C=window.CATALOGO,P=C.produtos,g=document.getElementById('grade'),q=document.getElementById('q'),ch=document.getElementById('chips'),ct=document.getElementById('conta'),cat='';
+  function n(s){return (s||'').toString().normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()}
+  P.forEach(function(p){p._s=n([p.n,p.l,p.r,p.c,p.tags,C.cat[p.cat]].join(' '))});
+  function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function chip(k,t){var b=document.createElement('button');b.className='chip';b.type='button';b.textContent=t;b.setAttribute('aria-pressed',k===cat);b.onclick=function(){cat=k;[].forEach.call(ch.children,function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true');draw()};ch.appendChild(b)}
+  chip('','Todos');Object.keys(C.cat).forEach(function(k){chip(k,C.cat[k])});
+  function card(p){
+    var u='/catalogo/p/'+p.c+'/',wa='https://wa.me/5577988129822?text='+encodeURIComponent('Olá, Bruno! Vi no catálogo da BKOS e quero o '+p.n+' (cód. '+p.c+').');
+    var ft=p.img?'<img loading="lazy" src="'+p.img+'" alt="'+esc(p.n)+'">':'<div class="semfoto"><img src="/img/simbolo.png" alt=""><span>Foto em breve</span></div>';
+    return '<article class="card"><a class="ft" href="'+u+'">'+ft+'</a><div class="bd"><span class="ln">'+esc(p.l)+'</span><h3><a href="'+u+'" style="text-decoration:none">'+esc(p.n)+'</a></h3>'+
+      '<div class="pr">'+p.pf+'<span>preço sugerido ao público</span></div>'+(p.cuf?'<div class="cu"><b>'+p.cuf+'</b> por uso (~'+p.apl+' usos)</div>':'')+
+      '<p class="rs">'+esc(p.r)+'</p>'+(p.salao?'<span class="sl">Também tem tratamento no salão</span>':'')+
+      '<div class="ac"><a href="'+u+'">Ver</a><a class="on" href="'+wa+'" target="_blank" rel="noopener">Pedir</a></div></div></article>';
+  }
+  function draw(){
+    var t=n(q.value).split(/\s+/).filter(Boolean),r=P.filter(function(p){return (!cat||p.cat===cat)&&t.every(function(w){return p._s.indexOf(w)>=0})});
+    g.innerHTML=r.length?r.map(card).join(''):'<p class="vazio">Nada encontrado. Tente outra palavra ou fale com a gente no WhatsApp.</p>';
+    ct.textContent=r.length+(r.length===1?' produto':' produtos');
+  }
+  var h=new URLSearchParams(location.search).get('q');if(h)q.value=h;
+  q.addEventListener('input',draw);draw();
+})();
+</script>
