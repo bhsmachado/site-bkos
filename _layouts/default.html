@@ -5,21 +5,29 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{% if page.title %}{{ page.title }} · BKOS{% else %}BKOS · Franqueada Grandha{% endif %}</title>
 <meta name="description" content="{{ page.description | default: site.description }}">
-{% if page.noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
+{% if page.noindex %}<meta name="robots" content="noindex, nofollow">{% else %}<link rel="canonical" href="{{ site.url }}{{ page.url | remove: 'index.html' }}">{% endif %}
 <link rel="icon" href="/img/favicon.png">
 <meta property="og:title" content="{{ page.title | default: site.title }}">
 <meta property="og:description" content="{{ page.description | default: site.description }}">
 <meta property="og:image" content="{{ site.url }}{{ page.image | default: '/img/og-bkos.jpg' }}">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta property="og:type" content="website"><meta property="og:site_name" content="BKOS">
+<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}"><meta property="og:site_name" content="BKOS">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","@id":"https://bkos.com.br/#organizacao","name":"BKOS","legalName":"BKOS Distribuidora Ltda","url":"https://bkos.com.br/","logo":"https://bkos.com.br/img/simbolo.png","description":"Franqueada Grandha em Vitória da Conquista, atendendo salões e terapeutas capilares de todo o Sudoeste Baiano.","email":"atendimento@bkos.com.br","telephone":"+55-77-98812-9822","areaServed":"Vitória da Conquista e Sudoeste Baiano, Bahia, Brasil","sameAs":["https://www.instagram.com/bkos.oficial/"],"founder":{"@type":"Person","@id":"https://bkos.com.br/#bruno","name":"Bruno Machado","jobTitle":"Terapeuta capilar","sameAs":["https://www.instagram.com/bhsmachado/"]}}
+</script>
+{% if page.layout == 'post' %}<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | jsonify }},"description":{{ page.description | default: site.description | jsonify }},"datePublished":"{{ page.date | date_to_xmlschema }}","inLanguage":"pt-BR","mainEntityOfPage":"{{ site.url }}{{ page.url }}","image":"{{ site.url }}{{ page.image | default: '/img/og-bkos.jpg' }}","author":{"@type":"Person","@id":"https://bkos.com.br/#bruno","name":"Bruno Machado","url":"https://bkos.com.br/#historia","jobTitle":"Terapeuta capilar","memberOf":{"@type":"Organization","name":"Academia Brasileira de Tricologia"},"sameAs":["https://www.instagram.com/bhsmachado/"]},"publisher":{"@id":"https://bkos.com.br/#organizacao"}}
+</script>{% endif %}
 </head>
 <body>
 <header><div class="wrap">
-  <a class="brand" href="/"><img src="/img/simbolo.png" alt=""><span class="word">BKOS</span></a>
+  <a class="brand" href="/"><img src="/img/simbolo.png" alt="" width="34" height="34"><span class="word">BKOS</span></a>
   <nav aria-label="Menu"><a href="/#historia">Nossa história</a><a href="/noticias.html">Notícias</a><a href="/blog/">Blog</a><a href="/#contato">Contato</a></nav>
   <a class="icon-link" href="https://wa.me/5577988129822?text=Ol%C3%A1%2C%20Bruno!%20Vim%20pelo%20site%20da%20BKOS." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5l1.2-3.6A8 8 0 1 1 8.4 18.6z"/><path d="M9.2 8.6c.2-.5.6-.6 1-.5l.6 1.4c.1.3 0 .6-.2.8l-.4.4c.5 1 1.3 1.8 2.3 2.3l.4-.4c.2-.2.5-.3.8-.2l1.4.6c.1.4 0 .8-.5 1-1.9.9-5.9-2.6-5.4-5.4z"/></svg><span>WhatsApp</span></a>
 </div></header>

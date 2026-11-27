@@ -1,0 +1,11 @@
+---
+layout: null
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for p in site.pages %}{% unless p.noindex or p.sitemap == false %}{% assign u = p.url | remove: 'index.html' %}{% assign last = u | slice: -1 %}{% if last == '/' or u contains '.html' %}
+  <url><loc>{{ site.url }}{{ u }}</loc></url>{% endif %}{% endunless %}{% endfor %}
+{%- for post in site.posts %}{% unless post.noindex %}
+  <url><loc>{{ site.url }}{{ post.url }}</loc><lastmod>{{ post.date | date_to_xmlschema }}</lastmod></url>{% endunless %}{% endfor %}
+</urlset>
