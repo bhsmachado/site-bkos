@@ -1,8 +1,11 @@
+/* Fontes reserva com medidas parecidas: evita o texto "pular" quando a fonte do Google carrega (CLS) */
+@font-face{font-family:"Jost fallback";src:local("Arial"),local("Helvetica"),local("Liberation Sans");size-adjust:94.45%;ascent-override:113.3%;descent-override:40.2%;line-gap-override:0%}
+@font-face{font-family:"Cormorant fallback";src:local("Georgia");size-adjust:96.5%;ascent-override:95.3%;descent-override:30.1%;line-gap-override:0%}
 /* Site BKOS, estilo Vitrine acolhedora. Mesmos tokens da ficha de pré-avaliação. */
 :root{
   --bg:#F6F7F5; --card:#FFFFFF; --ink:#2B2D42; --muted:#5f6670; --sage:#5E7F70; --sage-soft:#E4ECE7; --gold:#B8924A; --line:#DCE2DE;
   --shadow:0 14px 34px -22px rgba(43,45,66,.45);
-  --display:"Cormorant Garamond",Georgia,serif; --body:"Jost","Segoe UI",system-ui,sans-serif;
+  --display:"Cormorant Garamond","Cormorant fallback",Georgia,serif; --body:"Jost","Jost fallback","Segoe UI",system-ui,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171A1C;--card:#20252A;--ink:#EEF0EC;--muted:#A9B2AE;--sage:#8FB3A2;--sage-soft:#2A3631;--gold:#D2B06C;--line:#34403B;--shadow:0 14px 34px -22px rgba(0,0,0,.8);color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#171A1C;--card:#20252A;--ink:#EEF0EC;--muted:#A9B2AE;--sage:#8FB3A2;--sage-soft:#2A3631;--gold:#D2B06C;--line:#34403B;--shadow:0 14px 34px -22px rgba(0,0,0,.8);color-scheme:dark}
@@ -124,6 +127,9 @@ footer .icon-link{min-height:36px;font-weight:400}
 .author img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
 .author b{font-family:var(--display);font-size:1.25rem;display:block}
 .author span{color:var(--muted);font-size:.9rem}
+.author img{flex-shrink:0}
+.author .bio{display:block;margin-top:6px}
+.author .bio a{color:inherit;text-decoration:underline}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 22px}.chip{font:inherit;font-size:.92rem;font-weight:500;border-radius:999px;border:1px solid var(--sage);background:transparent;color:var(--sage);padding:8px 16px;min-height:42px;cursor:pointer}.chip[aria-pressed="true"]{background:var(--sage);color:var(--card)}.card[hidden]{display:none}
 .post .cover{width:100%;border-radius:22px;margin:0 0 26px;display:block}
 .card .thumb{width:calc(100% + 44px);margin:-22px -22px 6px;aspect-ratio:16/9;object-fit:cover;border-radius:22px 22px 0 0;display:block}

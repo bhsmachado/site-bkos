@@ -6,10 +6,10 @@ layout: default
   {% if page.tag %}<p class="eye">{{ page.tag }}</p>{% endif %}
   <h1>{{ page.title }}</h1>
   <p class="meta">{{ page.date | date: "%d/%m/%Y" }} · Bruno Machado</p>
-  {% if page.image %}<img class="cover" src="{{ page.image }}" alt="">{% endif %}
+  {% if page.image %}<img class="cover" src="{{ page.image }}" alt="{{ page.image_alt | default: page.title | escape }}">{% endif %}
   <div class="body">
 {%- comment -%} E-mail chega com quebras de linha a cada ~76 letras; junta as linhas e separa paragrafos {%- endcomment -%}
 {{ content | replace: "<br>​", "</p><p>" | replace: "<br>", " " | remove: "​" }}
   </div>
-  <div class="author"><img src="/img/bruno.jpg" alt=""><div><b>Bruno Machado</b><span>Terapeuta Capilar · Fundador da BKOS · Membro oficial da Academia Brasileira de Tricologia</span></div></div>
+  <div class="author"><img src="/img/bruno.jpg" alt="Foto de Bruno Machado, autor do texto" width="64" height="64" loading="lazy"><div><b>Bruno Machado</b><span>Terapeuta Capilar · Fundador da BKOS · Membro oficial da Academia Brasileira de Tricologia</span><span class="bio">14 anos de estrada até a terapia capilar, com formação em terapia capilar pela ABT, tricologia clínica e saúde integrativa, cosmetologia aplicada e aromaterapia clínica. <a href="/#historia">Conheça a história</a></span></div></div>
 </article></main>
